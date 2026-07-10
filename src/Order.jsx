@@ -6,15 +6,32 @@ export default function Order() {
   const [pizzas, setPizzas] = useState([]);
   const [pizzaType, setPizzaType] = useState('');
   const [selectedPizza, setSelectedPizza] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchPizzaTypes();
   }, []);
 
+  useEffect(() => {
+    if (pizzas.length && !pizzaType) {
+      setPizzaType(pizzas[0].id);
+      setSelectedPizza(pizzas[0]);
+    }
+  }, [pizzas]);
+
   async function fetchPizzaTypes() {
     const reponse = await fetch('/api/pizzas');
     const pizzaTypes = await reponse.json();
+    setLoading(false);
     return setPizzas(pizzaTypes);
+  }
+
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading....</h1>
+      </div>
+    );
   }
 
   return (
@@ -30,7 +47,7 @@ export default function Order() {
               onChange={(e) => {
                 setPizzaType(e.target.value);
                 setSelectedPizza(
-                  pizzas.find((pizza) => pizza.id === pizzaType),
+                  pizzas.find((pizza) => pizza.id === e.target.value),
                 );
               }}
               value={pizzaType}
