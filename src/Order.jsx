@@ -5,16 +5,18 @@ export default function Order() {
   const [pizzaSize, setPizzaSize] = useState('');
   const [pizzas, setPizzas] = useState([]);
   const [pizzaType, setPizzaType] = useState('');
-  const [selectedPizza, setSelectedPizza] = useState('');
+
+  // Derived from existing state — no extra state needed
+  const selectedPizza = pizzas.find((pizza) => pizza.id === pizzaType);
 
   useEffect(() => {
     fetchPizzaTypes();
   }, []);
 
   async function fetchPizzaTypes() {
-    const reponse = await fetch('/api/pizzas');
-    const pizzaTypes = await reponse.json();
-    return setPizzas(pizzaTypes);
+    const response = await fetch('/api/pizzas');
+    const pizzaTypes = await response.json();
+    setPizzas(pizzaTypes);
   }
 
   return (
@@ -27,12 +29,7 @@ export default function Order() {
             <select
               id="pizza-type"
               name="pizza-type"
-              onChange={(e) => {
-                setPizzaType(e.target.value);
-                setSelectedPizza(
-                  pizzas.find((pizza) => pizza.id === pizzaType),
-                );
-              }}
+              onChange={(e) => setPizzaType(e.target.value)}
               value={pizzaType}
             >
               {pizzas.map((pizza) => (
