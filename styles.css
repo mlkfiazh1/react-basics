@@ -38,7 +38,7 @@ nav {
   width: 100%;
   display: grid;
   border-bottom: 1px solid #ccc;
-  grid-template-areas: ". logo logo logo cart";
+  grid-template-areas: '. logo logo logo cart';
 }
 
 .logo {
@@ -46,7 +46,7 @@ nav {
   height: 110px;
   background-position: left;
   background-repeat: no-repeat;
-  content: url("/public/padre_gino.svg");
+  content: url('/public/padre_gino.svg');
   border-bottom: 1px solid #ccc;
   padding-bottom: 20px;
   padding-top: 20px;
@@ -89,7 +89,7 @@ nav > a {
 
 @font-face {
   font-family: Pacifico;
-  src: url("/public/Pacifico-Regular.ttf");
+  src: url('/public/Pacifico-Regular.ttf');
 }
 
 h2 {
@@ -102,7 +102,7 @@ h2 {
 }
 
 h2::after {
-  content: "";
+  content: '';
   display: inline-block;
   margin-left: 25px;
   width: 150px;
@@ -120,7 +120,7 @@ h2::after {
 
 .order {
   width: 100%;
-  margin-left: 5%;
+  /* margin-left: 5%; */
 }
 
 form div {
@@ -152,7 +152,7 @@ form select {
   width: 100%;
 }
 
-form input[type="radio"] {
+form input[type='radio'] {
   display: none;
 }
 

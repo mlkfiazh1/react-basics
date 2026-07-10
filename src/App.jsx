@@ -6,7 +6,7 @@ import Order from './Order';
 const App = () => {
   return (
     <div>
-      <h1>Pixel Perfect Pizzas</h1>
+      <h1 className="logo">Pixel Perfect Pizzas</h1>
       {/* <Pizza
         name="The Pepperoni Pizza"
         description="Mozzarella Cheese, Pepperoni"

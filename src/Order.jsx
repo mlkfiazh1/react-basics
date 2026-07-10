@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import Pizza from './Pizza';
 
 export default function Order() {
   const [pizzaSize, setPizzaSize] = useState('');
   const [pizzas, setPizzas] = useState([]);
   const [pizzaType, setPizzaType] = useState('');
+  const [selectedPizza, setSelectedPizza] = useState('');
 
   useEffect(() => {
     fetchPizzaTypes();
@@ -25,50 +27,49 @@ export default function Order() {
             <select
               id="pizza-type"
               name="pizza-type"
-              onChange={(e) => setPizzaType(e.target.value)}
+              onChange={(e) => {
+                setPizzaType(e.target.value);
+                setSelectedPizza(
+                  pizzas.find((pizza) => pizza.id === pizzaType),
+                );
+              }}
               value={pizzaType}
             >
               {pizzas.map((pizza) => (
-                <option key={pizza.id} value={pizza.name}>
+                <option key={pizza.id} value={pizza.id}>
                   {pizza.name}
                 </option>
               ))}
             </select>
           </div>
 
-          <div onChange={(e) => setPizzaSize(e.target.value)}>
+          <div>
             <label htmlFor="pizza-size">Pizza Size</label>
-            <span>
-              <input
-                checked={pizzaSize === 'S'}
-                type="radio"
-                name="pizza-size"
-                value="S"
-                id="pizza-s"
-              />
-              <label htmlFor="pizza-s">Small</label>
-            </span>
-            <span>
-              <input
-                checked={pizzaSize === 'M'}
-                type="radio"
-                name="pizza-size"
-                value="M"
-                id="pizza-m"
-              />
-              <label htmlFor="pizza-m">Medium</label>
-            </span>
-            <span>
-              <input
-                checked={pizzaSize === 'L'}
-                type="radio"
-                name="pizza-size"
-                value="L"
-                id="pizza-l"
-              />
-              <label htmlFor="pizza-l">Large</label>
-            </span>
+            {selectedPizza &&
+              Object.keys(selectedPizza.sizes).map((size) => (
+                <span key={size}>
+                  <input
+                    onChange={(e) => setPizzaSize(e.target.value)}
+                    checked={pizzaSize === size}
+                    type="radio"
+                    name="pizza-size"
+                    value={size}
+                    id={`pizza-${size}`}
+                  />
+                  <label htmlFor={`pizza-${size}`}>{size}</label>
+                </span>
+              ))}
           </div>
+        </div>
+        <div className="order-pizza">
+          {selectedPizza && (
+            <Pizza
+              name={selectedPizza.name}
+              description={selectedPizza.description}
+              image={selectedPizza.image}
+              price={selectedPizza.sizes[pizzaSize]}
+            />
+          )}
         </div>
       </form>
     </div>
