@@ -1,5 +1,4 @@
 const Pizza = (props) => {
-  console.log(props);
   return (
     <div className="pizza">
       <h1>{props.name}</h1>
