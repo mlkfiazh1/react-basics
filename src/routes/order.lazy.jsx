@@ -1,6 +1,12 @@
-import { useEffect, useState } from 'react';
-import Pizza from './Pizza';
-import Cart from './Cart';
+import { useContext, useEffect, useState } from 'react';
+import Pizza from '../Pizza';
+import Cart from '../Cart';
+import { CartContext } from '../contexts';
+import { createLazyFileRoute } from '@tanstack/react-router';
+
+export const Route = createLazyFileRoute('/order')({
+  component: Order,
+});
 
 export default function Order() {
   const [pizzaSize, setPizzaSize] = useState('');
@@ -8,7 +14,8 @@ export default function Order() {
   const [pizzaType, setPizzaType] = useState('');
   const [selectedPizza, setSelectedPizza] = useState('');
   const [loading, setLoading] = useState(true);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useContext(CartContext);
+  // const [cart, setCart] = useState([]);
 
   useEffect(() => {
     fetchPizzaTypes();
@@ -39,6 +46,7 @@ export default function Order() {
       body: JSON.stringify({ cart }),
     });
 
+    setCart([]);
     setLoading(false);
   }
 

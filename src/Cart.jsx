@@ -1,6 +1,4 @@
 const Cart = ({ cart, checkout }) => {
-  console.log(cart);
-
   return (
     <div className="cart">
       <h2>Cart</h2>

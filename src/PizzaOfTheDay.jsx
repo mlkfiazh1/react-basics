@@ -3,8 +3,6 @@ import { usePizzaOfTheDay } from './usePizzaOfTheDay';
 const PizzaOfTheDay = () => {
   const pizzaOfTheDay = usePizzaOfTheDay();
 
-  console.log(pizzaOfTheDay);
-
   if (!pizzaOfTheDay) {
     return (
       <div>
